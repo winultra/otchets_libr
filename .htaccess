@@ -1,0 +1,45 @@
+AddDefaultCharset utf-8
+AddCharset utf-8 *
+<IfModule mod_charset.c>
+CharsetSourceEnc utf-8
+CharsetDefault utf-8
+</IfModule>
+ErrorDocument 404 /pages-error-404.html
+
+RewriteEngine on
+
+RewriteCond %{HTTP:X-Forwarded-Proto} !^https$ [NC]
+#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+#RewriteRule ^(.*) https://%1/$1 [R=301,NE,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME}\.php -f 
+RewriteRule ^(.*)$ $1.php
+
+#ссылки связанные с отчетом по ЦОД
+RewriteRule ^work-cod$ index.php?page=work-cod [L]
+RewriteRule ^add-work-cod$ index.php?page=work-cod&section=add [L]
+RewriteRule ^work-cod([0-9]+)$ index.php?page=work-cod&section=id&id=$1 [L]
+RewriteRule ^list-otchets-work-cod$ index.php?page=work-cod&section=list-otchets-work-cod [L]
+RewriteRule ^generate-all-otchet$ index.php?page=work-cod&section=generate-all-otchet [L]
+RewriteRule ^edit-otchet-work-cod([0-9]+)$ index.php?page=work-cod&section=edit-otchet&id=$1  [L]
+#ссылки с основными показателями форма №1
+RewriteRule ^key-indicators$ index.php?page=key-indicators [L]
+RewriteRule ^add-key-indicators$ index.php?page=key-indicators&section=add [L]
+RewriteRule ^key-indicators([0-9]+)$ index.php?page=key-indicators&section=id&id=$1 [L]
+RewriteRule ^list-key-indicators$ index.php?page=key-indicators&section=list-key-indicators [L]
+RewriteRule ^edit-key-indicators([0-9]+)$ index.php?page=key-indicators&section=edit-otchet&id=$1 [L]
+RewriteRule ^generate-all-key-indicators$ index.php?page=key-indicators&section=generate-all [L]
+#Целевой показатель "Число посещений культурных мероприятий"
+RewriteRule ^cultural-events$ index.php?page=cultural-events [L]
+RewriteRule ^add-cultural-events$ index.php?page=cultural-events&section=add [L]
+RewriteRule ^cultural-events([0-9]+)$ index.php?page=cultural-events&section=id&id=$1 [L]
+RewriteRule ^edit-cultural-events([0-9]+)$ index.php?page=cultural-events&section=edit-otchet&id=$1 [L]
+RewriteRule ^list-cultural-events$ index.php?page=cultural-events&section=list-cultural-events [L]
+RewriteRule ^generate-all-cultural-events$ index.php?page=cultural-events&section=generate-all [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
